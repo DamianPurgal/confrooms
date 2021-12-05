@@ -8,7 +8,7 @@ import pl.polsl.confrooms.model.AccountService;
 @RestController
 @RequestMapping(path="/account")
 public class AccountController {
-//test
+
     @Autowired
     private AccountService accountService;
 
