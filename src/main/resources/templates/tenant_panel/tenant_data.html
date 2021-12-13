@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>Panel użytkownika</title>
+    <title>Dane użytkownika</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 
     <!-- Bootstrap core CSS -->
@@ -100,15 +100,15 @@
         </svg>
     </div>
     <br/>
-    <h1 class="h3 mb-3 fw-normal"
-        th:text="'Witaj ' + ${loggedUser.firstName}  + ' ' + ${loggedUser.lastName} + '!'"></h1>
+    <h1 class="h3 mb-3 fw-normal" th:text="'Imię ' + ${loggedUser.firstName}"></h1>
+    <h1 class="h3 mb-3 fw-normal" th:text="'Nazwisko ' + ${loggedUser.lastName}"></h1>
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <a class="btn btn-primary" th:href="@{/userPanel/data}">Wyświetl swoje dane</a>
+                <a class="btn btn-primary" th:href="@{/userPanel/data}">Edytuj dane</a>
             </div>
             <div class="col-6">
-                <a class="btn btn-primary" th:href="@{/tenant_reserved}">Wyświetl zarezerwowane sale</a>
+                <a class="btn btn-primary" th:href="@{/tenant_reserved}">Usuń konto</a>
             </div>
         </div>
     </div>
