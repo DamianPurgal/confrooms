@@ -16,4 +16,7 @@ public class TemplateController {
 
     @GetMapping("register")
     public String getRegistrationView(){ return "registration/register"; }
+
+    @GetMapping("/")
+    public String getDefaultView(){ return "index"; }
 }

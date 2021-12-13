@@ -6,23 +6,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 //KLASA ZBEDNA. JEST TO TYLKO PRZYKLAD.
 @Entity
 @Table(name = "accounts")
 public class Account {
 
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name="login")
+    @Column(name = "login")
     private String login;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="account_type")
+    @Column(name = "account_type")
     private String account_type;
 
     public Integer getId() {
