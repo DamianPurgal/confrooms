@@ -17,7 +17,6 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    @ResponseBody
     public ModelAndView loggedUser()
     {
         ModelAndView response = new ModelAndView("user_panel/user_panel");
@@ -26,7 +25,6 @@ public class UserController {
     }
 
     @GetMapping("/data")
-    @ResponseBody
     public ModelAndView getData()
     {
         ModelAndView response = new ModelAndView("user_panel/user_data");
