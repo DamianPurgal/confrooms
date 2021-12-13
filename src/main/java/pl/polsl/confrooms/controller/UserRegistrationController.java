@@ -20,10 +20,9 @@ public class UserRegistrationController {
 
     @PostMapping("registration")
     @ResponseBody
-    public ModelAndView registerUser(UserRegistrationRequest userRegistrationRequest)
-    {
+    public ModelAndView registerUser(UserRegistrationRequest userRegistrationRequest) {
         ModelAndView response = new ModelAndView("registration/registration_response");
-        response.addObject("response",userRegistrationService.registerUser(userRegistrationRequest) );
+        response.addObject("response", userRegistrationService.registerUser(userRegistrationRequest));
         return response;
     }
 }

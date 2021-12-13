@@ -17,10 +17,10 @@ import java.util.Collections;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name="users")
+@Entity(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
     private String firstName;
