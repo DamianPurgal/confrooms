@@ -42,7 +42,7 @@
         }
 
         main {
-            padding-top: 12%;
+            padding-top: 8%;
         }
 
         .tenant_panel {
@@ -68,16 +68,41 @@
         </svg>
     </div>
     <br/>
-    <h1 class="h3 mb-3 fw-normal" th:text="'Imię ' + ${loggedUser.firstName}"></h1>
-    <h1 class="h3 mb-3 fw-normal" th:text="'Nazwisko ' + ${loggedUser.lastName}"></h1>
+    <h1 class="h3 mb-3 fw-normal" th:text="'Imię: ' + ${loggedUser.firstName}"></h1>
+    <h1 class="h3 mb-3 fw-normal" th:text="'Nazwisko: ' + ${loggedUser.lastName}"></h1>
+    <h1 class="h3 mb-3 fw-normal" th:text="'Login: ' + ${loggedUser.username}"></h1>
+    <h1 class="h3 mb-3 fw-normal" th:text="'Email: ' + ${loggedUser.email}"></h1>
     <div class="container">
         <div class="row">
             <div class="col-6">
                 <a class="btn btn-primary" th:href="@{/userPanel/data}">Edytuj dane</a>
             </div>
             <div class="col-6">
-                <a class="btn btn-primary" th:href="@{/tenant_reserved}">Usuń konto</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Usuń konto
+                </button>
             </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Usunięcie konta</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Czy na pewno chcesz usunąć konto?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                            <a class="btn btn-primary" th:href="@{/userPanel/deleteUser}">Potwierdź</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </main>

@@ -19,10 +19,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException(
-                                String.format("User with username %s not found", username)));
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User with username %s not found", username)));
     }
 
     public UserRegistrationResponse addUser(User user) {
@@ -42,8 +39,14 @@ public class UserService implements UserDetailsService {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (loggedUser instanceof User) {
-            return new UserPanelDataResponse(((User) loggedUser).getFirstName(), ((User) loggedUser).getLastName());
+            return new UserPanelDataResponse(((User) loggedUser).getFirstName(),
+                    ((User) loggedUser).getLastName(), ((User) loggedUser).getUsername(),
+                    ((User) loggedUser).getEmail());
         }
         return null;
+    }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 }

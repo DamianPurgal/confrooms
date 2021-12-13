@@ -1,6 +1,7 @@
 package pl.polsl.confrooms.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +20,7 @@ public class UserController {
     @ResponseBody
     public ModelAndView loggedUser()
     {
-        ModelAndView response = new ModelAndView("tenant_panel/tenant_panel");
+        ModelAndView response = new ModelAndView("user_panel/user_panel");
         response.addObject("loggedUser",userService.getPanelData());
         return response;
     }
@@ -28,8 +29,17 @@ public class UserController {
     @ResponseBody
     public ModelAndView getData()
     {
-        ModelAndView response = new ModelAndView("tenant_panel/tenant_data");
+        ModelAndView response = new ModelAndView("user_panel/user_data");
         response.addObject("loggedUser",userService.getPanelData());
         return response;
     }
+
+//    @DeleteMapping("/deleteUser")
+//    @ResponseBody
+//    public void deleteUser(){
+//        System.out.println("jestem tu");
+//        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        userService.deleteUser((User) loggedUser);
+////        return "Test";
+//    }
 }
