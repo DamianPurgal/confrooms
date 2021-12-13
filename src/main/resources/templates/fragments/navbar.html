@@ -6,7 +6,7 @@
                     <a class="nav-link active" th:href="@{/}">CONFrooms</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/userPanel}">Sale konferencyjne</a>
+                    <a class="nav-link" >Sale konferencyjne</a>
                 </li>
             </ul>
             <a class="btn btn-primary d-flex align-items-center" th:href="@{/login}" sec:authorize="!isAuthenticated()">
@@ -25,7 +25,7 @@
                     Opcje
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-                    <li><a class="dropdown-item">Panel użytkownika</a></li>
+                    <li><a class="dropdown-item" th:href="@{/userPanel}">Panel użytkownika</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
