@@ -1,4 +1,5 @@
 package pl.polsl.confrooms.model.User;
+
 //PERMISJE WYSTEPUJACE W APLIKACJI
 public enum UserPermission {
     //TUTAJ MOŻNA DODAWAC PERMISJE WYSTEPUAJCE W APLIKACJI
