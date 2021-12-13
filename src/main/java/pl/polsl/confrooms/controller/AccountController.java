@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.confrooms.model.Account;
 import pl.polsl.confrooms.model.AccountService;
-
+//KLASA ZBEDNA. JEST TO TYLKO PRZYKLAD.
 @RestController
 @RequestMapping(path="/account")
 public class AccountController {
-//test
+
     @Autowired
     private AccountService accountService;
 
@@ -38,4 +38,5 @@ public class AccountController {
         // This returns a JSON or XML with the users
         return accountService.getAccountsPage(page);
     }
+
 }

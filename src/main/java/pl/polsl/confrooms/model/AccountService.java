@@ -5,7 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.polsl.confrooms.model.Account;
 import pl.polsl.confrooms.repository.AccountRepository;
-
+//KLASA ZBEDNA. JEST TO TYLKO PRZYKLAD.
 @Service
 public class AccountService {
 

@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+//KLASA ZBEDNA. JEST TO TYLKO PRZYKLAD.
 @Entity
 @Table(name = "accounts")
 public class Account {
