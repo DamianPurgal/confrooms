@@ -19,4 +19,7 @@ public class TemplateController {
 
     @GetMapping("/")
     public String getDefaultView(){ return "index"; }
+
+    @GetMapping("/test")
+    public String getTestView(){ return "EMPTY_FILE_TO_START"; }
 }

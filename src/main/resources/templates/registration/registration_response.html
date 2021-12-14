@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>Registration</title>
+    <title>Rejestracja</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/jumbotron/">
 
@@ -55,12 +55,11 @@
 
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
-                <h1 class="display-5 fw-bold" th:text="${response.title}">Should you be here?</h1>
+                <h1 class="display-5 fw-bold" th:text="${response.title}">Powinieneś tutaj być?</h1>
                 <p class="col-md-8 fs-4" th:text="${response.text}">Utworzyłeś konto w serwisie ConfRooms. Aby się
                     zalogować przejdź do strony logowania. </p>
                 <a class="btn btn-primary btn-lg" th:if="${response.success}" th:href="@{/login}">Zaloguj się</a>
-                <a class="btn btn-primary btn-lg" th:if="${!response.success}" th:href="@{/register}">Zarejestruj
-                    się</a>
+                <a class="btn btn-primary btn-lg" th:if="${!response.success}" th:href="@{/register}">Zarejestruj się</a>
             </div>
 
         </div>
