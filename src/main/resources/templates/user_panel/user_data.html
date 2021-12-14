@@ -97,7 +97,11 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                            <a class="btn btn-primary" th:href="@{/userPanel/deleteUser}">Potwierdź</a>
+                            <form method="post" action="/userPanel/deleteUser">
+                                <button type="submit" class="btn btn-primary">
+                                    Potwierdź
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

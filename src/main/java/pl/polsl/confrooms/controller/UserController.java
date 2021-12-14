@@ -32,12 +32,11 @@ public class UserController {
         return response;
     }
 
-//    @DeleteMapping("/deleteUser")
-//    @ResponseBody
-//    public void deleteUser(){
-//        System.out.println("jestem tu");
-//        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        userService.deleteUser((User) loggedUser);
-////        return "Test";
-//    }
+    @PostMapping("/deleteUser")
+    public String deleteUser(){
+        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SecurityContextHolder.clearContext();
+        userService.deleteUser((User) loggedUser);
+        return "redirect:/";
+    }
 }
