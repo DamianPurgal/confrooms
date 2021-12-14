@@ -49,4 +49,23 @@ public class UserService implements UserDetailsService {
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
+
+    public UserEditResponse editUser(UserEditRequest userEditRequest, User user) {
+        boolean isEmailValid = EmailValidation.isEmailValid(userEditRequest.getEmail());
+        if (!isEmailValid) {
+            return new UserEditResponse(false, "Błąd!", "Email nie jest poprawny. Spróbuj ponownie.");
+        }
+        if (!bCryptPasswordEncoder.matches(userEditRequest.getOldPassword(), user.getPassword())) {
+            return new UserEditResponse(false, "Błąd!", "Hasło nie jest poprawne. Spróbuj ponownie.");
+        }
+
+        user.setFirstName(userEditRequest.getFirstName());
+        user.setLastName(userEditRequest.getLastName());
+        user.setEmail(userEditRequest.getEmail());
+        user.setPassword(bCryptPasswordEncoder.encode(userEditRequest.getNewPassword()));
+
+        userRepository.save(user);
+        return new UserEditResponse(true, "Success!", "Zedytowano.");
+
+    }
 }
