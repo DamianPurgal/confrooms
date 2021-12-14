@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.polsl.confrooms.model.User.User;
+import pl.polsl.confrooms.model.User.UserEditRequest;
 import pl.polsl.confrooms.model.User.UserService;
 
 //CONTROLLER ODPOWIEDZIALNY ZA REJESTRACJE UZYTKOWNIKA
@@ -38,5 +39,18 @@ public class UserController {
         SecurityContextHolder.clearContext();
         userService.deleteUser((User) loggedUser);
         return "redirect:/";
+    }
+
+    @GetMapping("/editUser")
+    public String formEditUser(){
+        return "user_panel/user_edit";
+    }
+
+    @PostMapping("/editUser")
+    public ModelAndView editUser(UserEditRequest userEditRequest) {
+        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ModelAndView response = new ModelAndView("user_panel/user_edit_response");
+        response.addObject("response", userService.editUser(userEditRequest, (User)loggedUser));
+        return response;
     }
 }
