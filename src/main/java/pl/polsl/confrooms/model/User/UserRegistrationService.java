@@ -3,6 +3,8 @@ package pl.polsl.confrooms.model.User;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.polsl.confrooms.model.User.Requests.UserRegistrationRequest;
+import pl.polsl.confrooms.model.User.Responses.UserRegistrationResponse;
 
 //SERWIS(MODEL W MVC) ODPOWIADAJACY ZA REJESTRACJE UZYTYKOWNIKA
 @Service

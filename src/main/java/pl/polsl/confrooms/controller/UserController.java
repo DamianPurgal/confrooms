@@ -6,51 +6,48 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.polsl.confrooms.model.User.User;
-import pl.polsl.confrooms.model.User.UserEditRequest;
+import pl.polsl.confrooms.model.User.Requests.UserEditRequest;
 import pl.polsl.confrooms.model.User.UserService;
 
 //CONTROLLER ODPOWIEDZIALNY ZA REJESTRACJE UZYTKOWNIKA
 @Controller
-@RequestMapping("/userPanel")
 @AllArgsConstructor
 public class UserController {
 
     private UserService userService;
 
-    @GetMapping
-    public ModelAndView loggedUser()
-    {
+    @GetMapping("/userPanel")
+    public ModelAndView showUserPanel() {
         ModelAndView response = new ModelAndView("user_panel/user_panel");
-        response.addObject("loggedUser",userService.getPanelData());
+        response.addObject("loggedUser", userService.getPanelData());
         return response;
     }
 
-    @GetMapping("/data")
-    public ModelAndView getData()
-    {
+    @GetMapping("/userPanel/data")
+    public ModelAndView getUserDataDisplayedOnUserPanel() {
         ModelAndView response = new ModelAndView("user_panel/user_data");
-        response.addObject("loggedUser",userService.getPanelData());
+        response.addObject("loggedUser", userService.getPanelData());
         return response;
     }
 
-    @PostMapping("/deleteUser")
-    public String deleteUser(){
+    @PostMapping("/userPanel/deleteUser")
+    public String deleteUser() {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SecurityContextHolder.clearContext();
         userService.deleteUser((User) loggedUser);
         return "redirect:/";
     }
 
-    @GetMapping("/editUser")
-    public String formEditUser(){
+    @GetMapping("/userPanel/editUser")
+    public String showEditUserForm() {
         return "user_panel/user_edit";
     }
 
-    @PostMapping("/editUser")
+    @PostMapping("/userPanel/editUser")
     public ModelAndView editUser(UserEditRequest userEditRequest) {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/user_edit_response");
-        response.addObject("response", userService.editUser(userEditRequest, (User)loggedUser));
+        response.addObject("response", userService.editUser(userEditRequest, (User) loggedUser));
         return response;
     }
 }
