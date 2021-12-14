@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.polsl.confrooms.model.User.Requests.UserEditRequest;
+import pl.polsl.confrooms.model.User.Responses.UserEditResponse;
+import pl.polsl.confrooms.model.User.Responses.UserPanelDataResponse;
+import pl.polsl.confrooms.model.User.Responses.UserRegistrationResponse;
 import pl.polsl.confrooms.repository.UserRepository;
 
 //SERWIS(MODEL W MVC) ODPOWIADAJACY ZA PRACE NA UZYTKOWINKACH

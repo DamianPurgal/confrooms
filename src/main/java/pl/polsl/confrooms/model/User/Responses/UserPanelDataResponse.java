@@ -1,4 +1,4 @@
-package pl.polsl.confrooms.model.User;
+package pl.polsl.confrooms.model.User.Responses;
 
 import lombok.AllArgsConstructor;
 

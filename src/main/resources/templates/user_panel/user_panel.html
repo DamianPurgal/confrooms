@@ -78,7 +78,7 @@
             <div class="col-6">
                 <a class="btn btn-primary" th:if="${#request.isUserInRole('TENANT')}" th:href="@{/tenant_reserved}">Wyświetl
                     zarezerwowane sale</a>
-                <a class="btn btn-primary" th:if="${#request.isUserInRole('OWNER')}" th:href="@{/userPanel/reservedRooms}">Wyświetl
+                <a class="btn btn-primary" th:if="${#request.isUserInRole('OWNER')}" th:href="@{/userPanel/ConferenceRooms}">Wyświetl
                     posiadane sale</a>
             </div>
         </div>

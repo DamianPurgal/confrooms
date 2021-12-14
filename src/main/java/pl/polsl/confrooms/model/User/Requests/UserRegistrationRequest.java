@@ -1,4 +1,4 @@
-package pl.polsl.confrooms.model.User;
+package pl.polsl.confrooms.model.User.Requests;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -21,10 +21,10 @@ public class ConferenceRoom {
     private String name;
     private String homeNumber;
     private String street;
-    private boolean ledScreen;
-    private boolean airConditioning;
-    private boolean internet;
-    private boolean soundSystem;
+    private Boolean ledScreen;
+    private Boolean airConditioning;
+    private Boolean internet;
+    private Boolean soundSystem;
     private Double price;
 
     public ConferenceRoom(Long ownerId, String name, String homeNumber, String street, boolean ledScreen, boolean airConditioning, boolean internet, boolean soundSystem, Double price) {

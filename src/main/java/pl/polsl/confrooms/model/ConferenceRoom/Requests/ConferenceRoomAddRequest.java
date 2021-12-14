@@ -1,4 +1,4 @@
-package pl.polsl.confrooms.model.ConferenceRoom;
+package pl.polsl.confrooms.model.ConferenceRoom.Requests;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -12,4 +12,8 @@ public class ConferenceRoomAddRequest {
     private final String street;
     private final String homeNumber;
     private final Double price;
+    private final String ledScreen;
+    private final String airConditioning;
+    private final String internet;
+    private final String soundSystem;
 }
