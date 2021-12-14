@@ -25,8 +25,9 @@ public class ConferenceRoom {
     private boolean airConditioning;
     private boolean internet;
     private boolean soundSystem;
+    private Double price;
 
-    public ConferenceRoom(Long ownerId, String name, String homeNumber, String street, boolean ledScreen, boolean airConditioning, boolean internet, boolean soundSystem) {
+    public ConferenceRoom(Long ownerId, String name, String homeNumber, String street, boolean ledScreen, boolean airConditioning, boolean internet, boolean soundSystem, Double price) {
         this.ownerId = ownerId;
         this.name = name;
         this.homeNumber = homeNumber;
@@ -35,5 +36,6 @@ public class ConferenceRoom {
         this.airConditioning = airConditioning;
         this.internet = internet;
         this.soundSystem = soundSystem;
+        this.price = price;
     }
 }
