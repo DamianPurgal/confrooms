@@ -68,18 +68,10 @@
         </svg>
     </div>
     <br/>
-    <h1 class="h3 mb-3 fw-normal"
-        th:text="'Witaj ' + ${loggedUser.firstName}  + ' ' + ${loggedUser.lastName} + '!'"></h1>
     <div class="container">
         <div class="row">
-            <div class="col-6">
-                <a class="btn btn-primary" th:href="@{/userPanel/data}">Wyświetl swoje dane</a>
-            </div>
-            <div class="col-6">
-                <a class="btn btn-primary" th:if="${#request.isUserInRole('TENANT')}" th:href="@{/tenant_reserved}">Wyświetl
-                    zarezerwowane sale</a>
-                <a class="btn btn-primary" th:if="${#request.isUserInRole('OWNER')}" th:href="@{/userPanel/reservedRooms}">Wyświetl
-                    posiadane sale</a>
+            <div class="col-12">
+                <a class="btn btn-primary" th:href="@{/userPanel/reservedRooms/addRoom}">Dodaj salę</a>
             </div>
         </div>
     </div>
