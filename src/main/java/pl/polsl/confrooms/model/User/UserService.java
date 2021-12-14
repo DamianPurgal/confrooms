@@ -19,7 +19,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User with username %s not found", username)));
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("Nie znaleziono uzytkownika o nazwie %s", username)));
     }
 
     public UserRegistrationResponse addUser(User user) {
@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(userEditRequest.getNewPassword()));
 
         userRepository.save(user);
-        return new UserEditResponse(true, "Success!", "Zedytowano.");
+        return new UserEditResponse(true, "Sukces!", "Zedytowano.");
 
     }
 }
