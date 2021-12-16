@@ -9,7 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Date;
-
+//MAPOWANIE OBIEKTOWO RELACYJNE - ORM
+//STRUKTURA TABELI W BAZIE DANYCH
 @Getter
 @Setter
 @NoArgsConstructor

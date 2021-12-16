@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+//ZAPYTANIE DO SERWERA NA TEMAT DODANIA SAL KONFERENCYJNYCH
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
 public class ConferenceRoomAddRequest {
+    private final Integer numberOfSeats;
     private final String name;
     private final String street;
     private final String homeNumber;
