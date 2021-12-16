@@ -4,6 +4,7 @@ package pl.polsl.confrooms.model.User;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//WALIDACJA EMAILU
 public class EmailValidation {
 
     public static final Pattern VALID_EMAIL_REGEX =

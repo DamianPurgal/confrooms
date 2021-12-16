@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+//MAPOWANIE OBIEKTOWO RELACYJNE - ORM
+//STRUKTURA TABELI W BAZIE DANYCH
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,6 +20,7 @@ public class ConferenceRoom {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long ownerId;
+    private Integer numberOfSeats;
     private String name;
     private String homeNumber;
     private String street;
@@ -27,8 +30,9 @@ public class ConferenceRoom {
     private Boolean soundSystem;
     private Double price;
 
-    public ConferenceRoom(Long ownerId, String name, String homeNumber, String street, boolean ledScreen, boolean airConditioning, boolean internet, boolean soundSystem, Double price) {
+    public ConferenceRoom(Long ownerId, Integer numberOfSeats, String name, String homeNumber, String street, Boolean ledScreen, Boolean airConditioning, Boolean internet, Boolean soundSystem, Double price) {
         this.ownerId = ownerId;
+        this.numberOfSeats = numberOfSeats;
         this.name = name;
         this.homeNumber = homeNumber;
         this.street = street;
