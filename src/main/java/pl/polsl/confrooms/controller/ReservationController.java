@@ -2,6 +2,7 @@ package pl.polsl.confrooms.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class ReservationController {
     private UserService userService;
 
     @GetMapping("/reservation")
+    @PreAuthorize("permitAll()")
     public ModelAndView getReservationView(Long id, @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
 //        jesli data nie zostala przekazana ustawiam ja na aktualna. Jesli data jest przeszla ustawiam ja na aktualna.
         if (date == null) {
@@ -54,6 +56,7 @@ public class ReservationController {
     }
 
     @PostMapping("/reservation")
+    @PreAuthorize("hasAnyRole('ROLE_TENANT')")
     public ModelAndView createConferenceRoomReservation(@RequestParam(value = "id") Long id, @RequestParam(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Reservation reservation = new Reservation(
@@ -68,6 +71,7 @@ public class ReservationController {
     }
 
     @GetMapping("/userPanel/Reservations")
+    @PreAuthorize("hasAnyRole('ROLE_TENANT')")
     public ModelAndView getUserReservations(@RequestParam(value = "page", defaultValue = "0") int page){
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/tenant_reservations");
@@ -75,6 +79,7 @@ public class ReservationController {
         return response;
     }
     @PostMapping("/userPanel/Reservation/remove")
+    @PreAuthorize("hasAnyRole('ROLE_TENANT')")
     public ModelAndView deleteUserReservation(@RequestParam(value = "id") Long id){
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/delete_reservation_response");

@@ -1,6 +1,7 @@
 package pl.polsl.confrooms.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class SearchController {
 
     //tutaj trzeba zaimplementowac default date - aktualna date.
     @GetMapping("/ConferenceRooms")
+    @PreAuthorize("permitAll()")
     public ModelAndView searchConferenceRooms(@RequestParam(value = "page", defaultValue = "0") int page, ConferenceRoomSearchRequest conferenceRoomSearchRequest) {
 //        jesli ilosc miejsc w sali nie zostala przekazana ustawiam wartosc na 0
         if (conferenceRoomSearchRequest.getNumberOfSeats() == null) {
