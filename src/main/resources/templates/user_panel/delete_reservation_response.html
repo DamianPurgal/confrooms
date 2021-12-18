@@ -9,14 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>Rezerwacja</title>
+    <title>Usuniecie rezerwacji</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/jumbotron/">
 
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
-    <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -57,7 +57,7 @@
             <div class="container-fluid py-5">
                 <h1 class="display-5 fw-bold" th:text="${response.title}">Powinieneś tutaj być?</h1>
                 <p class="col-md-8 fs-4" th:text="${response.text}"> ? </p>
-                <a class="btn btn-primary btn-lg" th:href="@{/}">Wróć do strony głównej</a>
+                <a class="btn btn-primary btn-lg" th:href="@{/userPanel/Reservations}">Wróć do listy rezerwacji</a>
             </div>
 
         </div>
