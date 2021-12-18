@@ -40,11 +40,11 @@
                                     <p class="card-text pb-0 mb-0 font-weight-bold"
                                        th:text="${conferenceRoom.getName()}">Tu jest krótki opis sali
                                         konferencyjnej </p>
-                                    <p class="card-text pt-0 mt-0" th:text="'Ulica : '+ ${conferenceRoom.getStreet()}">
+                                    <p class="card-text pt-0 mt-0" th:text="${conferenceRoom.getDescription()}">
                                         Tu jest krótki opis sali konferencyjnej </p>
                                     <div class="d-flex align-items-end">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"> Pokaż więcej
-                                        </button>
+                                        <a type="button" class="btn btn-sm btn-outline-secondary" th:href="@{/ConferenceRoom(id=${conferenceRoom.getId()},date=(${param.date} == null ? ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} : ${param.date}))}"> Pokaż więcej
+                                        </a>
                                     </div>
                                 </div>
                             </div>

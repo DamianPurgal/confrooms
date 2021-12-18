@@ -1,16 +1,22 @@
 package pl.polsl.confrooms.model.ConferenceRoom;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.polsl.confrooms.model.ConferenceRoom.Responses.ConferenceRoomDeleteResponse;
+import pl.polsl.confrooms.model.Exceptions.NotFoundException;
+import pl.polsl.confrooms.model.Reservation.Reservation;
+import pl.polsl.confrooms.model.Reservation.ReservationAddResponse;
 import pl.polsl.confrooms.model.Reservation.ReservationService;
 import pl.polsl.confrooms.model.User.Responses.UserRegistrationResponse;
 import pl.polsl.confrooms.model.User.User;
 import pl.polsl.confrooms.repository.ConferenceRoomRepository;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 //SERVICE (MODEL W MVC) ODPOWIEDZIALNY ZA OBSLUGE ZAPYTAN NA TEMAT SAL KONFERENCYJNYCH
@@ -52,5 +58,13 @@ public class ConferenceRoomService {
 
     public Page<ConferenceRoom> getSearchedConferenceRooms(int page, Boolean ledScreen, Boolean airConditioning, Boolean internet, Boolean soundSystem, Integer numberOfSeats, Set<Long> reservedConferenceRoomsConferenceRoomId) {
         return conferenceRoomRepository.findByLedScreenGreaterThanEqualAndAirConditioningGreaterThanEqualAndInternetGreaterThanEqualAndSoundSystemGreaterThanEqualAndNumberOfSeatsGreaterThanEqualAndIdNotIn(ledScreen, airConditioning, internet, soundSystem, numberOfSeats, reservedConferenceRoomsConferenceRoomId, PageRequest.of(page, CONF_ROOMS_PER_PAGE));
+    }
+
+    public ConferenceRoom getConferenceRoom(Long id) throws NotFoundException {
+        return conferenceRoomRepository.findById(id).orElseThrow(() -> new NotFoundException("Nie znaleziono sali konferencyjnej o podanym id"));
+    }
+
+    public ReservationAddResponse reserveConferenceRoom(Reservation reservation) {
+        return reservationService.addConfrerenceRoomReservation(reservation);
     }
 }

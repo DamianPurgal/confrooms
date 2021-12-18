@@ -11,6 +11,7 @@ import lombok.Getter;
 public class ConferenceRoomAddRequest {
     private final Integer numberOfSeats;
     private final String name;
+    private final String description;
     private final String street;
     private final String homeNumber;
     private final Double price;

@@ -95,6 +95,10 @@
                     </form>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center"
+                    th:text="'Opis : '+ ${conferenceRoom.getDescription()}">
+
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center"
                     th:text="'Numer mieszkania : '+ ${conferenceRoom.getHomeNumber()}">
 
                 </li>

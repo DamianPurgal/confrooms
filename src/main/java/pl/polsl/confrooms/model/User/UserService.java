@@ -11,6 +11,7 @@ import pl.polsl.confrooms.model.User.Requests.UserEditRequest;
 import pl.polsl.confrooms.model.User.Responses.UserEditResponse;
 import pl.polsl.confrooms.model.User.Responses.UserPanelDataResponse;
 import pl.polsl.confrooms.model.User.Responses.UserRegistrationResponse;
+import pl.polsl.confrooms.model.User.Responses.UserReservationDataResponse;
 import pl.polsl.confrooms.repository.UserRepository;
 
 //SERWIS(MODEL W MVC) ODPOWIADAJACY ZA PRACE NA UZYTKOWINKACH
@@ -45,6 +46,20 @@ public class UserService implements UserDetailsService {
         if (loggedUser instanceof User) {
             return new UserPanelDataResponse(((User) loggedUser).getFirstName(),
                     ((User) loggedUser).getLastName(), ((User) loggedUser).getUsername(),
+                    ((User) loggedUser).getEmail());
+        }
+        return null;
+    }
+
+    public UserReservationDataResponse getDataToDisplayOnReservation() {
+        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (loggedUser instanceof User) {
+            return new UserReservationDataResponse(
+                    ((User) loggedUser).getId(),
+                    ((User) loggedUser).getFirstName(),
+                    ((User) loggedUser).getLastName(),
+                    ((User) loggedUser).getUsername(),
                     ((User) loggedUser).getEmail());
         }
         return null;

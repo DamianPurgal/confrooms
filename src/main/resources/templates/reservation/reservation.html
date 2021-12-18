@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pl"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/thymleaf-extras-springsecurity5"
+>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title th:text="${'Rezerwacja: ' + conferenceRoom.getName()}">Rezerwacja sali</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+    <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body class="bg-light">
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container align-content-center mt-5">
+    <p class="display-5 text-center"> Rezerwacja </p>
+</div>
+
+<div class="container">
+    <main>
+
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Wybrana sala</span>
+                </h4>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#99CCFF"/>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text" th:text="'Nazwa: '+ ${conferenceRoom.getName()}">Tu jest krótki opis
+                                sali konferencyjnej </p>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Adres</h6>
+                        </div>
+                        <span class="text-muted"
+                              th:text="${conferenceRoom.getStreet() + ' ' + conferenceRoom.getHomeNumber()}"> Adres </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Cena</h6>
+                        </div>
+                        <span class="text-muted" th:text="${conferenceRoom.getPrice() + ' zl'}"> Cena </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Ilość miejsc</h6>
+                        </div>
+                        <span class="text-muted" th:text="${conferenceRoom.getNumberOfSeats()}"> x </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <h4 class="mb-3 text-primary ">Dane najemcy</h4>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="firstName" class="form-label">Imię</label>
+                        <div>
+                            <input class="form-control my-0" id="firstName" type="text"
+                                   th:placeholder="${user.getFirstName()}" disabled></input>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="lastName" class="form-label">Nazwisko</label>
+                        <div>
+                            <input class="form-control my-0" id="lastName" type="text"
+                                   th:placeholder="${user.getLastName()}" disabled></input>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="login" class="form-label">Login</label>
+                        <div>
+                            <input class="form-control my-0" id="login" type="text"
+                                   th:placeholder="${user.getUsername()}" disabled></input>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="email" class="form-label">email</label>
+                        <div>
+                            <input class="form-control my-0" id="email" type="text" th:placeholder="${user.getEmail()}"
+                                   disabled></input>
+                        </div>
+                    </div>
+                    <form class="needs-validation" action="/reservation" method="post" id="reservationForm" novalidate>
+                        <div class="col-6">
+                            <label for="date" class="form-label">Data wynajmu</label>
+                            <div>
+                                <div class="input-group has-validation">
+                                    <input type="text" id="date" class="form-control" name="date" required>
+                                    <div class="input-group-text" id="btnGroupAddon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-calendar3" viewBox="0 0 16 16">
+                                            <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                                            <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Zajęta/Przeszła data nie jest poprawna.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="number" class="d-none" name="id" th:value="${conferenceRoom.getId()}"/>
+                        <hr class="my-5">
+                        <button class="w-100 btn btn-primary btn-lg my-2" type="submit">Zapłać</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+<footer class="text-muted my-5 pt-5">
+    <div class="container">
+        <p class="mb-1"> Powyższa strona to studencki projekt semestralny, proszę nie brać nic co jest tu widoczne na
+            poważnie :) </p>
+        <p class="mb-0"> Autorzy: Damian Purgał, Daniel Pakosz, Aleksandra Tlałka, Damian Rożek, Oliwier Kania.</p>
+    </div>
+</footer>
+
+</body>
+
+<script>
+    var recievedDates = "[[${reservedDates}]]";
+    var dates = recievedDates.split(',');
+
+    function disableDates(date) {
+        var string = $.datepicker.formatDate('yy-mm-dd', date);
+        return [dates.indexOf(string) == -1];
+    }
+
+    $(document).ready(function () {
+        $("#date").datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0,
+            beforeShowDay: disableDates,
+        });
+        var url = new URL(window.location.href);
+
+        var date = url.searchParams.get("date");
+        if (date == null || date == "undefined") {
+            $("#date").datepicker('setDate', new Date());
+        } else {
+            $("#date").datepicker('setDate', date);
+        }
+        if (dates.includes(date)) {
+            $("#date").datepicker('setDate', new Date());
+        }
+
+
+    });
+
+    var form = document.getElementById("reservationForm");
+    form.addEventListener('submit', function (event) {
+        var url = new URL(window.location.href);
+        var inputDateStrings = (document.getElementById("date").value).split('-');
+        var inputDate = new Date(inputDateStrings[0], inputDateStrings[1] - 1, inputDateStrings[2]);
+        var todayDate = new Date();
+        todayDate.setHours(0, 0, 0, 0);
+        if (!/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/.test(document.getElementById("date").value) || dates.includes(document.getElementById("date").value) || inputDate.getTime() < todayDate.getTime()) {
+            document.getElementById("date").setCustomValidity("error")
+            event.preventDefault()
+            event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+    }, false)
+</script>
+</html>
