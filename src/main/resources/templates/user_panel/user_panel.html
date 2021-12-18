@@ -76,7 +76,7 @@
                 <a class="btn btn-primary" th:href="@{/userPanel/data}">Wyświetl swoje dane</a>
             </div>
             <div class="col-6">
-                <a class="btn btn-primary" th:if="${#request.isUserInRole('TENANT')}" th:href="@{/tenant_reserved}">Wyświetl
+                <a class="btn btn-primary" th:if="${#request.isUserInRole('TENANT')}" th:href="@{/userPanel/Reservations}">Wyświetl
                     zarezerwowane sale</a>
                 <a class="btn btn-primary" th:if="${#request.isUserInRole('OWNER')}" th:href="@{/userPanel/ConferenceRooms}">Wyświetl
                     posiadane sale</a>

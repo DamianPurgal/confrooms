@@ -12,5 +12,7 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
 
     List<Reservation> findByConferenceRoomId(Long conferenceRoomId);
 
+    List<Reservation> findByTenantId(Long tenantId);
+
     boolean existsByConferenceRoomIdAndDate(Long conferenceRoomId, Date date);
 }

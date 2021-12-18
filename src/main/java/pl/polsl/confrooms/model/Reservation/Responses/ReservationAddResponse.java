@@ -1,4 +1,4 @@
-package pl.polsl.confrooms.model.Reservation;
+package pl.polsl.confrooms.model.Reservation.Responses;
 
 import lombok.AllArgsConstructor;
 

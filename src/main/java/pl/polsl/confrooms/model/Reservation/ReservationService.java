@@ -2,14 +2,22 @@ package pl.polsl.confrooms.model.Reservation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.polsl.confrooms.model.ConferenceRoom.ConferenceRoom;
 import pl.polsl.confrooms.model.ConferenceRoom.ConferenceRoomService;
+import pl.polsl.confrooms.model.Reservation.Responses.ReservationAddResponse;
+import pl.polsl.confrooms.model.Reservation.Responses.ReservationDeleteResponse;
+import pl.polsl.confrooms.model.Reservation.Responses.ReservationUserPanelResponse;
+import pl.polsl.confrooms.model.User.User;
+import pl.polsl.confrooms.repository.ConferenceRoomRepository;
 import pl.polsl.confrooms.repository.ReservationRepository;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 //SERVICE (MODEL W MVC) ODPOWIEDZIALNY ZA REZERWACJE SALI KONFERENCYJNEJ W DANYM DNIU
 @Service
@@ -17,14 +25,16 @@ public class ReservationService {
 
     @Autowired
     ReservationRepository reservationRepository;
+    @Autowired
+    ConferenceRoomRepository conferenceRoomRepository;
 
     public List<Reservation> getReservationsByDate(Date date) {
         return reservationRepository.findByDate(date);
     }
 
-    public List<Reservation> isConferenceRoomReservationExists(Long conferenceRoomId) {
-        return reservationRepository.findByConferenceRoomId(conferenceRoomId);
-    }
+//    public List<Reservation> isConferenceRoomReservationExists(Long conferenceRoomId) {
+//        return reservationRepository.findByConferenceRoomId(conferenceRoomId);
+//    }
 
     public String getReservedDatesOfConferenceRoom(Long id) {
         List<Reservation> listOfConferenceRooms = reservationRepository.findByConferenceRoomId(id);
@@ -59,5 +69,34 @@ public class ReservationService {
 //        nie sprawdzam czy istnieje taki uzytkownik
         reservationRepository.save(reservation);
         return new ReservationAddResponse(true, "Sukces", "Pomyślnie zarezerwowano salę");
+    }
+
+    public List<ReservationUserPanelResponse> getUserReservations(Long tenantId){
+        List<Reservation> reservations = reservationRepository.findByTenantId(tenantId);
+        List<ReservationUserPanelResponse> result = new ArrayList<>();
+        for(Reservation reservation : reservations){
+            Optional<ConferenceRoom> conferenceRoom = conferenceRoomRepository.findById(reservation.getConferenceRoomId());
+            if(conferenceRoom.isPresent()) {
+                result.add(new ReservationUserPanelResponse(
+                        conferenceRoom.get(),
+                        reservation.getDate(),
+                        reservation.getId()
+                ));
+            }
+        }
+        return result;
+    }
+    public ReservationDeleteResponse deleteUserReservation(Long reservationId, User user){
+        Optional<Reservation> reservation = reservationRepository.findById(reservationId);
+        if(reservation.isPresent()){
+            if(reservation.get().getTenantId() == user.getId()){
+                reservationRepository.delete(reservation.get());
+                return new ReservationDeleteResponse(true,"Sukces", "Usunięto rezerwację.");
+            }else{
+                return new ReservationDeleteResponse(false,"Błąd!", "Ta rezerwacja nie została wykonana przez Ciebie!");
+            }
+        }else{
+         return new ReservationDeleteResponse(false,"Błąd!", "Taka rezerwacja nie istnieje.");
+        }
     }
 }
