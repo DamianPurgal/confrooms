@@ -5,8 +5,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.polsl.confrooms.model.User.Requests.UserRegistrationRequest;
 import pl.polsl.confrooms.model.User.User;
 import pl.polsl.confrooms.model.User.Requests.UserEditRequest;
+import pl.polsl.confrooms.model.User.UserRegistrationService;
 import pl.polsl.confrooms.model.User.UserService;
 
 //CONTROLLER ODPOWIEDZIALNY ZA REJESTRACJE UZYTKOWNIKA
@@ -15,6 +17,7 @@ import pl.polsl.confrooms.model.User.UserService;
 public class UserController {
 
     private UserService userService;
+    private UserRegistrationService userRegistrationService;
 
     @GetMapping("/userPanel")
     public ModelAndView showUserPanel() {
@@ -48,6 +51,13 @@ public class UserController {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/user_edit_response");
         response.addObject("response", userService.editUser(userEditRequest, (User) loggedUser));
+        return response;
+    }
+
+    @PostMapping("register")
+    public ModelAndView registerUser(UserRegistrationRequest userRegistrationRequest) {
+        ModelAndView response = new ModelAndView("registration/registration_response");
+        response.addObject("response", userRegistrationService.registerUser(userRegistrationRequest));
         return response;
     }
 }

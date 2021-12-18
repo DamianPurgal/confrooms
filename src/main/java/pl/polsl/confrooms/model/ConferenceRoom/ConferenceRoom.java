@@ -22,6 +22,7 @@ public class ConferenceRoom {
     private Long ownerId;
     private Integer numberOfSeats;
     private String name;
+    private String description;
     private String homeNumber;
     private String street;
     private Boolean ledScreen;
@@ -30,10 +31,12 @@ public class ConferenceRoom {
     private Boolean soundSystem;
     private Double price;
 
-    public ConferenceRoom(Long ownerId, Integer numberOfSeats, String name, String homeNumber, String street, Boolean ledScreen, Boolean airConditioning, Boolean internet, Boolean soundSystem, Double price) {
+
+    public ConferenceRoom(Long ownerId, Integer numberOfSeats, String name, String description, String homeNumber, String street, Boolean ledScreen, Boolean airConditioning, Boolean internet, Boolean soundSystem, Double price) {
         this.ownerId = ownerId;
         this.numberOfSeats = numberOfSeats;
         this.name = name;
+        this.description = description;
         this.homeNumber = homeNumber;
         this.street = street;
         this.ledScreen = ledScreen;

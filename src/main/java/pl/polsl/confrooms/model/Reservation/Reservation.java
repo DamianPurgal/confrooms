@@ -1,14 +1,14 @@
 package pl.polsl.confrooms.model.Reservation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.*;
+import java.util.Date;
+
 //MAPOWANIE OBIEKTOWO RELACYJNE - ORM
 //STRUKTURA TABELI W BAZIE DANYCH
 @Getter
@@ -21,9 +21,12 @@ public class Reservation {
     private Long id;
     private Long conferenceRoomId;
     private Long tenantId;
-    private java.sql.Date date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
-    public Reservation(Long conferenceRoomId, Long tenantId, Date date) {
+    public Reservation(Long conferenceRoomId, Long tenantId, @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         this.conferenceRoomId = conferenceRoomId;
         this.tenantId = tenantId;
         this.date = date;
