@@ -2,6 +2,7 @@ package pl.polsl.confrooms.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class ConferenceRoomController {
     private ConferenceRoomService conferenceRoomService;
 
     @GetMapping("/userPanel/ConferenceRooms")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     public ModelAndView showConferenceRooms(@RequestParam(value = "page", defaultValue = "0") int page) {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/owner_conference_rooms");
@@ -35,11 +37,13 @@ public class ConferenceRoomController {
     }
 
     @GetMapping("/userPanel/ConferenceRooms/addConferenceRoom")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     public String showFormAddConferenceRoom() {
         return "user_panel/add_room";
     }
 
     @PostMapping("/userPanel/ConferenceRooms/deleteConferenceRoom")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     public ModelAndView deleteConferenceRoom(int conferenceRoomId) {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/delete_conference_room_response");
@@ -48,6 +52,7 @@ public class ConferenceRoomController {
     }
 
     @PostMapping("/userPanel/ConferenceRooms/addConferenceRoom")
+    @PreAuthorize("hasAnyRole('ROLE_OWNER')")
     public ModelAndView addConferenceRoom(ConferenceRoomAddRequest conferenceRoomAddRequest) {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ConferenceRoom conferenceRoom = new ConferenceRoom(
@@ -69,6 +74,7 @@ public class ConferenceRoomController {
     }
 
     @GetMapping("/ConferenceRoom")
+    @PreAuthorize("permitAll()")
     public ModelAndView getDeailedConferenceRoomView(@RequestParam(value = "id", defaultValue = "-1") Long id, @DateTimeFormat(pattern = "yyyy-MM-dd")Date date) {
 //        jesli data nie zostala przekazana ustawiam ja na aktualna. Jesli data jest przeszla ustawiam ja na aktualna.
         if (date == null) {

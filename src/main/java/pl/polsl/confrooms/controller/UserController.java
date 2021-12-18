@@ -1,6 +1,7 @@
 package pl.polsl.confrooms.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class UserController {
     private UserRegistrationService userRegistrationService;
 
     @GetMapping("/userPanel")
+    @PreAuthorize("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
     public ModelAndView showUserPanel() {
         ModelAndView response = new ModelAndView("user_panel/user_panel");
         response.addObject("loggedUser", userService.getPanelData());
@@ -27,6 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/userPanel/data")
+    @PreAuthorize("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
     public ModelAndView getUserDataDisplayedOnUserPanel() {
         ModelAndView response = new ModelAndView("user_panel/user_data");
         response.addObject("loggedUser", userService.getPanelData());
@@ -34,6 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/userPanel/deleteUser")
+    @PreAuthorize("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
     public String deleteUser() {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SecurityContextHolder.clearContext();
@@ -42,11 +46,13 @@ public class UserController {
     }
 
     @GetMapping("/userPanel/editUser")
+    @PreAuthorize("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
     public String showEditUserForm() {
         return "user_panel/user_edit";
     }
 
     @PostMapping("/userPanel/editUser")
+    @PreAuthorize("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
     public ModelAndView editUser(UserEditRequest userEditRequest) {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/user_edit_response");
@@ -55,6 +61,7 @@ public class UserController {
     }
 
     @PostMapping("register")
+    @PreAuthorize("permitAll()")
     public ModelAndView registerUser(UserRegistrationRequest userRegistrationRequest) {
         ModelAndView response = new ModelAndView("registration/registration_response");
         response.addObject("response", userRegistrationService.registerUser(userRegistrationRequest));
