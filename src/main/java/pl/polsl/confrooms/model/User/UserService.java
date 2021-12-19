@@ -31,38 +31,40 @@ public class UserService implements UserDetailsService {
 //        sprawdzenie czy uzytkownik juz istnieje
         boolean isUserInDB = userRepository.findByUsername(user.getUsername()).isPresent();
         if (isUserInDB) {
-            return new UserRegistrationResponse(false, "Błąd!", "Taki użytkownik już istnieje. Spróbuj ponownie.");
+            return new UserRegistrationResponse(
+                    false,
+                    "Błąd!",
+                    "Taki użytkownik już istnieje. Spróbuj ponownie."
+            );
         }
 //        szyfrowanie hasla
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 //        zapisanie uzytkownika do db
         userRepository.save(user);
-        return new UserRegistrationResponse(true, "Sukces!", "Dodano konto użytkownika");
+        return new UserRegistrationResponse(
+                true,
+                "Sukces!",
+                "Dodano konto użytkownika"
+        );
     }
 
-    public UserPanelDataResponse getPanelData() {
-        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (loggedUser instanceof User) {
-            return new UserPanelDataResponse(((User) loggedUser).getFirstName(),
-                    ((User) loggedUser).getLastName(), ((User) loggedUser).getUsername(),
-                    ((User) loggedUser).getEmail());
-        }
-        return null;
+    public UserPanelDataResponse getUserPanelData(User user) {
+        return new UserPanelDataResponse(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getEmail()
+        );
     }
 
-    public UserReservationDataResponse getDataToDisplayOnReservation() {
-        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (loggedUser instanceof User) {
-            return new UserReservationDataResponse(
-                    ((User) loggedUser).getId(),
-                    ((User) loggedUser).getFirstName(),
-                    ((User) loggedUser).getLastName(),
-                    ((User) loggedUser).getUsername(),
-                    ((User) loggedUser).getEmail());
-        }
-        return null;
+    public UserReservationDataResponse getDataToDisplayOnReservation(User user) {
+        return new UserReservationDataResponse(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getEmail()
+        );
     }
 
     public void deleteUser(User user) {
@@ -72,10 +74,18 @@ public class UserService implements UserDetailsService {
     public UserEditResponse editUser(UserEditRequest userEditRequest, User user) {
         boolean isEmailValid = EmailValidation.isEmailValid(userEditRequest.getEmail());
         if (!isEmailValid) {
-            return new UserEditResponse(false, "Błąd!", "Email nie jest poprawny. Spróbuj ponownie.");
+            return new UserEditResponse(
+                    false,
+                    "Błąd!",
+                    "Email nie jest poprawny. Spróbuj ponownie."
+            );
         }
         if (!bCryptPasswordEncoder.matches(userEditRequest.getOldPassword(), user.getPassword())) {
-            return new UserEditResponse(false, "Błąd!", "Hasło nie jest poprawne. Spróbuj ponownie.");
+            return new UserEditResponse(
+                    false,
+                    "Błąd!",
+                    "Hasło nie jest poprawne. Spróbuj ponownie."
+            );
         }
 
         user.setFirstName(userEditRequest.getFirstName());
@@ -84,7 +94,11 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(userEditRequest.getNewPassword()));
 
         userRepository.save(user);
-        return new UserEditResponse(true, "Sukces!", "Zedytowano.");
+        return new UserEditResponse(
+                true,
+                "Sukces!",
+                "Zedytowano."
+        );
 
     }
 }

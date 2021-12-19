@@ -23,16 +23,18 @@ public class UserController {
     @GetMapping("/userPanel")
     @PreAuthorize("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
     public ModelAndView showUserPanel() {
+        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/user_panel");
-        response.addObject("loggedUser", userService.getPanelData());
+        response.addObject("loggedUser", userService.getUserPanelData((User) loggedUser));
         return response;
     }
 
     @GetMapping("/userPanel/data")
     @PreAuthorize("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
     public ModelAndView getUserDataDisplayedOnUserPanel() {
+        Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/user_data");
-        response.addObject("loggedUser", userService.getPanelData());
+        response.addObject("loggedUser", userService.getUserPanelData((User) loggedUser));
         return response;
     }
 

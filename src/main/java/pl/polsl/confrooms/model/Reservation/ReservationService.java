@@ -32,10 +32,6 @@ public class ReservationService {
         return reservationRepository.findByDate(date);
     }
 
-//    public List<Reservation> isConferenceRoomReservationExists(Long conferenceRoomId) {
-//        return reservationRepository.findByConferenceRoomId(conferenceRoomId);
-//    }
-
     public String getReservedDatesOfConferenceRoom(Long id) {
         List<Reservation> listOfConferenceRooms = reservationRepository.findByConferenceRoomId(id);
         String reservedDatesOfConferenceRoom = "";
@@ -57,26 +53,42 @@ public class ReservationService {
         try {
             todayDate = formatter.parse(formatter.format(todayDate));
         } catch (ParseException e) {
-            return new ReservationAddResponse(false, "Błąd!", "Nastąpił błąd wewnętrzny serwera!");
+            return new ReservationAddResponse(
+                    false,
+                    "Błąd!",
+                    "Nastąpił błąd wewnętrzny serwera!"
+            );
         }
 //        sprawdzam czy data nie jest przeszła, sprawdzam czy rezerwacja istnieje
         if (reservation.getDate().before(todayDate)) {
-            return new ReservationAddResponse(false, "Błąd!", "Nie mozesz podać daty która miała już miejsce!");
+            return new ReservationAddResponse(
+                    false,
+                    "Błąd!",
+                    "Nie mozesz podać daty która miała już miejsce!"
+            );
         }
         if (reservationRepository.existsByConferenceRoomIdAndDate(reservation.getConferenceRoomId(), reservation.getDate())) {
-            return new ReservationAddResponse(false, "Błąd!", "Podana sala nie istnieje lub data jest zajęta!");
+            return new ReservationAddResponse(
+                    false,
+                    "Błąd!",
+                    "Podana sala nie istnieje lub data jest zajęta!"
+            );
         }
 //        nie sprawdzam czy istnieje taki uzytkownik
         reservationRepository.save(reservation);
-        return new ReservationAddResponse(true, "Sukces", "Pomyślnie zarezerwowano salę");
+        return new ReservationAddResponse(
+                true,
+                "Sukces",
+                "Pomyślnie zarezerwowano salę"
+        );
     }
 
-    public List<ReservationUserPanelResponse> getUserReservations(Long tenantId){
+    public List<ReservationUserPanelResponse> getUserReservations(Long tenantId) {
         List<Reservation> reservations = reservationRepository.findByTenantId(tenantId);
         List<ReservationUserPanelResponse> result = new ArrayList<>();
-        for(Reservation reservation : reservations){
+        for (Reservation reservation : reservations) {
             Optional<ConferenceRoom> conferenceRoom = conferenceRoomRepository.findById(reservation.getConferenceRoomId());
-            if(conferenceRoom.isPresent()) {
+            if (conferenceRoom.isPresent()) {
                 result.add(new ReservationUserPanelResponse(
                         conferenceRoom.get(),
                         reservation.getDate(),
@@ -86,17 +98,30 @@ public class ReservationService {
         }
         return result;
     }
-    public ReservationDeleteResponse deleteUserReservation(Long reservationId, User user){
+
+    public ReservationDeleteResponse deleteUserReservation(Long reservationId, User user) {
         Optional<Reservation> reservation = reservationRepository.findById(reservationId);
-        if(reservation.isPresent()){
-            if(reservation.get().getTenantId() == user.getId()){
+        if (reservation.isPresent()) {
+            if (reservation.get().getTenantId() == user.getId()) {
                 reservationRepository.delete(reservation.get());
-                return new ReservationDeleteResponse(true,"Sukces", "Usunięto rezerwację.");
-            }else{
-                return new ReservationDeleteResponse(false,"Błąd!", "Ta rezerwacja nie została wykonana przez Ciebie!");
+                return new ReservationDeleteResponse(
+                        true,
+                        "Sukces",
+                        "Usunięto rezerwację."
+                );
+            } else {
+                return new ReservationDeleteResponse(
+                        false,
+                        "Błąd!",
+                        "Ta rezerwacja nie została wykonana przez Ciebie!"
+                );
             }
-        }else{
-         return new ReservationDeleteResponse(false,"Błąd!", "Taka rezerwacja nie istnieje.");
+        } else {
+            return new ReservationDeleteResponse(
+                    false,
+                    "Błąd!",
+                    "Taka rezerwacja nie istnieje."
+            );
         }
     }
 }
