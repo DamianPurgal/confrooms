@@ -1,7 +1,6 @@
 package pl.polsl.confrooms.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,13 +10,7 @@ import pl.polsl.confrooms.model.ConferenceRoom.ConferenceRoom;
 import pl.polsl.confrooms.model.ConferenceRoom.ConferenceRoomService;
 import pl.polsl.confrooms.model.ConferenceRoom.Requests.ConferenceRoomAddRequest;
 import pl.polsl.confrooms.model.Exceptions.NotFoundException;
-import pl.polsl.confrooms.model.Reservation.Reservation;
-import pl.polsl.confrooms.model.Reservation.ReservationService;
 import pl.polsl.confrooms.model.User.User;
-import pl.polsl.confrooms.model.User.UserService;
-
-import java.util.Date;
-
 
 //CONTROLLER ODPOWIADAJACY ZA ZWRACANIE ODPOWIEDNICH WIDOKOW DLA POSZCZEGOLNYCH ZAPYTAN NA TEMAT SAL KONFERENCYJNYCH
 @Controller
@@ -75,20 +68,13 @@ public class ConferenceRoomController {
 
     @GetMapping("/ConferenceRoom")
     @PreAuthorize("permitAll()")
-    public ModelAndView getDeailedConferenceRoomView(@RequestParam(value = "id", defaultValue = "-1") Long id, @DateTimeFormat(pattern = "yyyy-MM-dd")Date date) {
-//        jesli data nie zostala przekazana ustawiam ja na aktualna. Jesli data jest przeszla ustawiam ja na aktualna.
-        if (date == null) {
-            date = new Date();
-        } else if (date.before(new Date())) {
-            date = new Date();
-        }
-        try{
+    public ModelAndView getDeailedConferenceRoomView(@RequestParam(value = "id", defaultValue = "-1") Long id) {
+        try {
             ModelAndView response = new ModelAndView("conference_rooms/conference_room_detailed");
             response.addObject("conferenceRoom", conferenceRoomService.getConferenceRoom(id));
-            response.addObject("date", new Date());
             return response;
 
-        }catch(NotFoundException e){
+        } catch (NotFoundException e) {
             ModelAndView response = new ModelAndView("conference_rooms/conference_room_details_failed_response");
             response.addObject("errorMessage", "Sala nie istnieje.");
             return response;

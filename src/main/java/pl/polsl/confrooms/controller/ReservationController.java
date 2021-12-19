@@ -14,12 +14,10 @@ import pl.polsl.confrooms.model.ConferenceRoom.ConferenceRoomService;
 import pl.polsl.confrooms.model.Exceptions.NotFoundException;
 import pl.polsl.confrooms.model.Reservation.Reservation;
 import pl.polsl.confrooms.model.Reservation.ReservationService;
-import pl.polsl.confrooms.model.Reservation.Responses.ReservationUserPanelResponse;
 import pl.polsl.confrooms.model.User.User;
 import pl.polsl.confrooms.model.User.UserService;
 
 import java.util.Date;
-import java.util.List;
 
 //CONTROLLER ODPOWIADAJACY ZA ZWRACANIE ODPOWIEDNICH WIDOKOW DLA POSZCZEGOLNYCH ZAPYTAN NA TEMAT REZERWACJI
 @Controller
@@ -32,20 +30,14 @@ public class ReservationController {
     private UserService userService;
 
     @GetMapping("/reservation")
-    @PreAuthorize("permitAll()")
-    public ModelAndView getReservationView(Long id, @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-//        jesli data nie zostala przekazana ustawiam ja na aktualna. Jesli data jest przeszla ustawiam ja na aktualna.
-        if (date == null) {
-            date = new Date();
-        } else if (date.before(new Date())) {
-            date = new Date();
-        }
+    @PreAuthorize("hasAnyRole('ROLE_TENANT')")
+    public ModelAndView getReservationView(Long id) {
         try {
+            Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             ModelAndView response = new ModelAndView("reservation/reservation");
             response.addObject("conferenceRoom", conferenceRoomService.getConferenceRoom(id));
-            response.addObject("date", new Date());
             response.addObject("reservedDates", reservationService.getReservedDatesOfConferenceRoom(id));
-            response.addObject("user", userService.getDataToDisplayOnReservation());
+            response.addObject("user", userService.getDataToDisplayOnReservation((User)loggedUser));
             return response;
 
         } catch (NotFoundException e) {

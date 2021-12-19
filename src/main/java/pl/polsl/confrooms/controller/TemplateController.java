@@ -28,9 +28,4 @@ public class TemplateController {
         return "index";
     }
 
-    @GetMapping("/test")
-    @PreAuthorize("permitAll()")
-    public String getTestView() {
-        return "EMPTY_FILE_TO_START";
-    }
 }
