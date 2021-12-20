@@ -14,6 +14,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+    <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
         .bd-placeholder-img {
@@ -92,6 +93,12 @@
 
         <div class="alert alert-info" sec:authorize="isAuthenticated()">
             <strong>Informacja</strong> <br/>Jesteś aktualnie zalogowany
+        </div>
+        <div class="alert alert-danger" th:if="${param.error}" sec:authorize="!isAuthenticated()">
+            <strong>Błąd</strong> <br/>Logowanie nieudane
+        </div>
+        <div class="alert alert-success" th:if="${param.logout}" sec:authorize="!isAuthenticated()">
+            <strong>Sukces</strong> <br/>Bezpiecznie wylogowano
         </div>
 
         <div class="form-floating">

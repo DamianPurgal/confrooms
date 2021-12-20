@@ -31,6 +31,13 @@ public class ConferenceRoomService {
                     "Liczba dostępnych miejsc w sali konferencyjnej musi być większa od 0!"
             );
         }
+        if (conferenceRoom.getPrice() <= 0) {
+            return new UserRegistrationResponse(
+                    false,
+                    "Błąd!",
+                    "Cena wynajmu sali konferencyjnej musi być większa od 0!"
+            );
+        }
         conferenceRoomRepository.save(conferenceRoom);
         return new UserRegistrationResponse(
                 true,
