@@ -12,6 +12,8 @@ import pl.polsl.confrooms.model.User.Requests.UserEditRequest;
 import pl.polsl.confrooms.model.User.UserRegistrationService;
 import pl.polsl.confrooms.model.User.UserService;
 
+import javax.transaction.Transactional;
+
 //CONTROLLER ODPOWIEDZIALNY ZA REJESTRACJE UZYTKOWNIKA
 @Controller
 @AllArgsConstructor
@@ -40,6 +42,7 @@ public class UserController {
 
     @PostMapping("/userPanel/deleteUser")
     @PreAuthorize("hasAnyRole('ROLE_TENANT','ROLE_OWNER')")
+    @Transactional
     public String deleteUser() {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SecurityContextHolder.clearContext();

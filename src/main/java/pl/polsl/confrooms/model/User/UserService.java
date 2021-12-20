@@ -7,12 +7,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.polsl.confrooms.model.ConferenceRoom.ConferenceRoom;
 import pl.polsl.confrooms.model.User.Requests.UserEditRequest;
 import pl.polsl.confrooms.model.User.Responses.UserEditResponse;
 import pl.polsl.confrooms.model.User.Responses.UserPanelDataResponse;
 import pl.polsl.confrooms.model.User.Responses.UserRegistrationResponse;
 import pl.polsl.confrooms.model.User.Responses.UserReservationDataResponse;
+import pl.polsl.confrooms.repository.ConferenceRoomRepository;
+import pl.polsl.confrooms.repository.ReservationRepository;
 import pl.polsl.confrooms.repository.UserRepository;
+
+import java.util.List;
 
 //SERWIS(MODEL W MVC) ODPOWIADAJACY ZA PRACE NA UZYTKOWINKACH
 @Service
@@ -20,6 +25,8 @@ import pl.polsl.confrooms.repository.UserRepository;
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
+    private ConferenceRoomRepository conferenceRoomRepository;
+    private ReservationRepository reservationRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -68,6 +75,15 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteUser(User user) {
+        if(user.getUserRole() == UserRole.TENANT){
+            reservationRepository.deleteByTenantId(user.getId());
+        }else if(user.getUserRole() == UserRole.OWNER){
+            List<ConferenceRoom> userConferenceRooms = conferenceRoomRepository.findByOwnerId(user.getId());
+            for(ConferenceRoom conferenceRoom : userConferenceRooms){
+                reservationRepository.deleteByConferenceRoomId(conferenceRoom.getId());
+                conferenceRoomRepository.delete(conferenceRoom);
+            }
+        }
         userRepository.delete(user);
     }
 

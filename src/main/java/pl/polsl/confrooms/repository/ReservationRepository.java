@@ -15,4 +15,8 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     List<Reservation> findByTenantId(Long tenantId);
 
     boolean existsByConferenceRoomIdAndDate(Long conferenceRoomId, Date date);
+
+    void deleteByConferenceRoomId(Long conferenceRoomId);
+
+    void deleteByTenantId(Long tenantId);
 }
