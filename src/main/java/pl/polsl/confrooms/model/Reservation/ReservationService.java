@@ -24,9 +24,9 @@ import java.util.Optional;
 public class ReservationService {
 
     @Autowired
-    ReservationRepository reservationRepository;
+    private ReservationRepository reservationRepository;
     @Autowired
-    ConferenceRoomRepository conferenceRoomRepository;
+    private ConferenceRoomRepository conferenceRoomRepository;
 
     public List<Reservation> getReservationsByDate(Date date) {
         return reservationRepository.findByDate(date);
