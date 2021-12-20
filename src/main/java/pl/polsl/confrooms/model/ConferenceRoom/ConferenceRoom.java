@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 //MAPOWANIE OBIEKTOWO RELACYJNE - ORM
 //STRUKTURA TABELI W BAZIE DANYCH
@@ -17,7 +14,15 @@ import javax.persistence.Id;
 @Entity(name = "ConferenceRooms")
 public class ConferenceRoom {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name="conference_room_sequence",
+            sequenceName = "conference_roomn_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "conference_room_sequence"
+    )
     private Long id;
     private Long ownerId;
     private Integer numberOfSeats;
