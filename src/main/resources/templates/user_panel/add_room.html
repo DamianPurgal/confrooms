@@ -65,7 +65,7 @@
                             <label for="name" class="form-label">Nazwa </label>
                             <div class="input-group has-validation">
                                 <input type="text" class="form-control" id="name" name="name"
-                                       placeholder="" minlength="4" required>
+                                       placeholder="" minlength="4" maxlength="255" required>
                                 <div class="invalid-feedback">
                                     Poprawna nazwa sali jest wymagana.
                                 </div>
@@ -75,7 +75,7 @@
                             <label for="name" class="form-label">Opis </label>
                             <div class="input-group has-validation">
                                 <input type="text" class="form-control" id="description" name="description"
-                                       placeholder="" minlength="4" required>
+                                       placeholder="" minlength="4" maxlength="255" required>
                                 <div class="invalid-feedback">
                                     Opis sali jest wymagany.
                                 </div>
@@ -83,7 +83,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label for="street" class="form-label">Ulica</label>
-                            <input type="text" class="form-control" id="street" name="street" required>
+                            <input type="text" class="form-control" id="street" name="street" maxlength="255" required>
                             <div class="invalid-feedback">
                                 Poprawna ulica jest wymagana.
                             </div>
@@ -91,7 +91,7 @@
 
                         <div class="col-sm-6">
                             <label for="homeNumber" class="form-label">Numer domu</label>
-                            <input type="text" class="form-control" id="homeNumber" name="homeNumber" required>
+                            <input type="text" class="form-control" id="homeNumber" name="homeNumber" maxlength="255" required>
                             <div class="invalid-feedback">
                                 Poprawny numer domu jest wymagany.
                             </div>
