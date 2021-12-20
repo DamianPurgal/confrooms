@@ -16,7 +16,7 @@ public class ConferenceRoom {
     @Id
     @SequenceGenerator(
             name="conference_room_sequence",
-            sequenceName = "conference_roomn_sequence",
+            sequenceName = "conference_room_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
