@@ -17,7 +17,7 @@
     </div>
 
         <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|" class="mt-5">404</h1> <br/>
-        <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+        <h2 th:utext="${errorMessage}">Error java.lang.NullPointerException</h2>
     <a href="index.html" class="btn btn-lg btn-warning" th:href="@{/}">Wróć na stronę główną</a>
 </div>
 
