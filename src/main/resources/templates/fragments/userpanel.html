@@ -1,0 +1,215 @@
+<div th:fragment="userpanel">
+<style>
+    body {
+        font-size: .875rem;
+    }
+
+    .feather {
+        width: 16px;
+        height: 16px;
+        vertical-align: text-bottom;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        padding: 48px 0 0;
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    }
+
+    @media (max-width: 767.98px) {
+        .sidebar {
+            top: 5rem;
+        }
+    }
+
+    .sidebar-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: .5rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .sidebar .nav-link {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .sidebar .nav-link .feather {
+        margin-right: 4px;
+        color: #727272;
+    }
+
+    .sidebar .nav-link.active {
+        color: #2470dc;
+    }
+
+    .sidebar .nav-link:hover .feather,
+    .sidebar .nav-link.active .feather {
+        color: inherit;
+    }
+
+    .sidebar-heading {
+        font-size: .75rem;
+        text-transform: uppercase;
+    }
+
+    .navbar-brand {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        font-size: 1rem;
+        background-color: rgba(0, 0, 0, .25);
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+    }
+
+    .navbar .navbar-toggler {
+        top: .25rem;
+        right: 1rem;
+    }
+
+    .navbar .form-control {
+        padding: .75rem 1rem;
+        border-width: 0;
+        border-radius: 0;
+    }
+
+    .form-control-dark {
+        color: #fff;
+        background-color: rgba(255, 255, 255, .1);
+        border-color: rgba(255, 255, 255, .1);
+    }
+
+    .form-control-dark:focus {
+        border-color: transparent;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+    }
+</style>
+
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/userPanel}" style="cursor:pointer;">
+                    <span data-feather="home"></span>
+                    Panel użytkownika
+                </a>
+            </li>
+            <!--BGN OF OWNER -->
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted" th:if="${#request.isUserInRole('OWNER')}">
+                <span>Sale konferencyjne</span>
+            </h6>
+
+            <li class="nav-item" th:if="${#request.isUserInRole('OWNER')}" >
+                <a class="nav-link" th:href="@{/userPanel/ConferenceRooms}" style="cursor:pointer;">
+                    <span data-feather="list"></span>
+                    Moje sale konferencyjne
+                </a>
+            </li>
+            <li class="nav-item" th:if="${#request.isUserInRole('OWNER')}">
+                <a class="nav-link" th:href="@{/userPanel/ConferenceRooms/addConferenceRoom}" style="cursor:pointer;">
+                    <span data-feather="file-plus"></span>
+                    Dodaj sale konferencyjną
+                </a>
+            </li>
+            <li class="nav-item" th:if="${#request.isUserInRole('OWNER')}" >
+                <a class="nav-link" th:href="@{/userPanel/ConferenceRooms}" style="cursor:pointer;">
+                    <span data-feather="trash"></span>
+                    Usuń salę konferencyjną
+                </a>
+            </li>
+            <!--END OF OWNER -->
+            <!--BGN OF TENANT -->
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted" th:if="${#request.isUserInRole('TENANT')}">
+                <span>Rezerwacje</span>
+            </h6>
+            <li class="nav-item" th:if="${#request.isUserInRole('TENANT')}">
+                <a class="nav-link" th:href="@{/userPanel/Reservations}" style="cursor:pointer;">
+                    <span data-feather="book"></span>
+                    Moje rezerwacje
+                </a>
+            </li>
+            <li class="nav-item"  th:if="${#request.isUserInRole('TENANT')}">
+                <a class="nav-link" th:href="@{/userPanel/Reservations}" style="cursor:pointer;">
+                    <span data-feather="trash"></span>
+                    Anuluj rezerwację
+                </a>
+            </li>
+            <!--END OF TENANT -->
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Użytkownik</span>
+            </h6>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/userPanel/data}" style="cursor:pointer;">
+                    <span data-feather="user"></span>
+                    Dane użytkownika
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/userPanel/editUser}" style="cursor:pointer;">
+                    <span data-feather="edit"></span>
+                    Edytuj swoje dane
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/logout}" style="cursor:pointer;">
+                    <span data-feather="log-out"></span>
+                    Wyloguj
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <span data-feather="user-x" class="text-danger"></span>
+                    <span class="text-danger">Usuń konto</span>
+                </a>
+            </li>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Inne</span>
+            </h6>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}"  style="cursor:pointer;">
+                    <span data-feather="layout"></span>
+                    Wróć do strony głównej
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/userPanel}" style="cursor:pointer;">
+                    <span data-feather="settings"></span>
+                    Wróć do panelu użytkownika
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Usunięcie konta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Czy na pewno chcesz usunąć konto?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                    <form method="post" action="/userPanel/deleteUser">
+                        <button type="submit" class="btn btn-danger">
+                            Usuń konto
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>feather.replace()</script>
+</div>

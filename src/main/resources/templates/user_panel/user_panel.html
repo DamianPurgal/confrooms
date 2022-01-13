@@ -15,74 +15,160 @@
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
     <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            align-items: center;
-            padding-bottom: 40px;
-            background-color: #f5f5f5;
-        }
-
-        main {
-            padding-top: 12%;
-        }
-
-        .tenant_panel {
-            max-width: 30%;
-            margin: auto;
-        }
-
-    </style>
 </head>
 
-<body class="text-center">
+<body>
 
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<main class="tenant_panel">
-    <div class="container align-content-center">
+<div th:replace="fragments/userpanel :: userpanel"></div>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
-             class="bi bi-building container align-content-center" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
-            <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
-        </svg>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="row h-75 mt-5 mx-5">
+        <div class="col">
+            <span class="display-5">ConfRooms</span><span class="display-5 text-muted"> | Panel użytkownika</span>
+        </div>
+        <hr class="my-4" />
     </div>
-    <br/>
-    <h1 class="h3 mb-3 fw-normal"
-        th:text="'Witaj ' + ${loggedUser.firstName}  + ' ' + ${loggedUser.lastName} + '!'"></h1>
-    <div class="container">
-        <div class="row">
-            <div class="col-6">
-                <a class="btn btn-primary" th:href="@{/userPanel/data}">Wyświetl swoje dane</a>
+
+    <div class="row mt-5 mx-5">
+        <div class="col-8 bg-light border rounded-2 shadow-sm">
+            <div class="row m-4">
+                <div class="col-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor"
+                         class="bi bi-person-circle text-muted" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                        <path fill-rule="evenodd"
+                              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                    </svg>
+                </div>
+                <div class="col-11">
+                    <div class="display-6 text-muted" th:text="'Witaj ponownie ' + ${loggedUser.firstName}  + ' ' + ${loggedUser.lastName} + '!'">
+                        Witaj Jan Kowalski!
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <div class="col-12 lead text-muted">
+                    Jesteś w panelu użytkownika ConfRooms!</br>
+                    Jeśli chcesz wrócić do strony głównej użyj poniższego przycisku.
+                </div>
+                <div class="col-12 align-items-end text-end my-3">
+                    <a class="btn btn-primary float-right" th:href="@{/}">Strona główna</a>
+                </div>
             </div>
-            <div class="col-6">
-                <a class="btn btn-primary" th:if="${#request.isUserInRole('TENANT')}" th:href="@{/userPanel/Reservations}">Wyświetl
-                    zarezerwowane sale</a>
-                <a class="btn btn-primary" th:if="${#request.isUserInRole('OWNER')}" th:href="@{/userPanel/ConferenceRooms}">Wyświetl
-                    posiadane sale</a>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-3 bg-light border rounded-2 shadow-sm">
+            <div class="row w-75 p-5 py-4 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-calendar4-week text-muted "
+                     viewBox="0 0 16 16">
+                    <path
+                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1H2zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5z" />
+                    <path
+                            d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                </svg>
+            </div>
+            <div class="row">
+                <div class=" h4 mx-auto text-center text-muted">
+                    Aktualna data
+                </div>
+            </div>
+            <div class="row mx-3">
+                <hr />
+            </div>
+            <div class="row">
+                <div class=" h4 mx-auto text-center text-muted" id="date">
+
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="row mt-5 mx-5 ">
+        <div class="col">
+            <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Użytkownik</div>
+                <div class="card-body text-primary">
+                    <h5 class="card-title">Dane użytkownika</h5>
+                    <p class="card-text">Zobacz szczegółowe dane na temat twojego konta!</p>
+                    <a class="btn btn-primary mx-auto" th:href="@{/userPanel/data}" style="cursor:pointer;">Szczegółowe dane</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Użytkownik</div>
+                <div class="card-body text-primary">
+                    <h5 class="card-title">Edytuj swoje dane</h5>
+                    <p class="card-text">Edytuj szczegółowe dane na temat twojego konta!</p>
+                    <a class="btn btn-primary mx-auto" th:href="@{/userPanel/editUser}" style="cursor:pointer;">Edytuj</a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- BGN OF OWNER -->
+        <div class="col" th:if="${#request.isUserInRole('OWNER')}">
+            <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">Sale konferencyjne</div>
+                <div class="card-body text-success">
+                  <h5 class="card-title">Sale konferencyjne</h5>
+                  <p class="card-text">Zobacz swoje sale konferencyjne!</p>
+                  <a class="btn btn-success mx-auto" th:href="@{/userPanel/ConferenceRooms}" style="cursor:pointer;">Moje sale konferencyjne</a>
+                </div>
+              </div>
+        </div>
+
+        <div class="col" th:if="${#request.isUserInRole('OWNER')}">
+            <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">Sale konferencyjne</div>
+                <div class="card-body text-success">
+                  <h5 class="card-title">Dodaj sale konferencyjną</h5>
+                  <p class="card-text">Dodaj sale konferencyjną</p>
+                  <a class="btn btn-success mx-auto" th:href="@{/userPanel/ConferenceRooms/addConferenceRoom}" style="cursor:pointer;">Dodaj</a>
+                </div>
+              </div>
+        </div>
+        <!-- END OF OWNER -->
+        <!-- BGN OF TENANT -->
+        <div class="col" th:if="${#request.isUserInRole('TENANT')}">
+            <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">Rezerwacja</div>
+                <div class="card-body text-success">
+                    <h5 class="card-title">Rezerwacje</h5>
+                    <p class="card-text">Zobacz swoje rezerwacje!</p>
+                    <a class="btn btn-success mx-auto" th:href="@{/userPanel/Reservations}" style="cursor:pointer;">Moje rezerwacje</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col" th:if="${#request.isUserInRole('TENANT')}">
+            <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">Rezerwacja</div>
+                <div class="card-body text-success">
+                    <h5 class="card-title">Anuluj rezerwacje</h5>
+                    <p class="card-text">Anuluj swoją rezerwację!</p>
+                    <a class="btn btn-success mx-auto"  th:href="@{/userPanel/Reservations}" style="cursor:pointer;">Anuluj</a>
+                </div>
+            </div>
+        </div>
+        <!-- END OF TENANT -->
+    </div>
 </main>
+
+<script>
+    feather.replace()
+
+    var today = new Date();
+    var day = today.getDate().toString().length == 1 ? "0" + today.getDate().toString() : today.getDate().toString();
+    var month = (today.getMonth() + 1).toString().length == 1 ? "0" + (today.getMonth() + 1).toString() : (today.getMonth() + 1).toString();
+    var date = today.getFullYear() + '-' + month + '-' + day;
+    document.getElementById("date").innerHTML = date;
+</script>
 </body>
 </html>

@@ -40,85 +40,81 @@
 
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<div class="container">
-    <main>
-        <div class="py-5 text-center">
-            <div class="container align-content-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
-                     class="bi bi-building container align-content-center" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                          d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
-                    <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
-                </svg>
+<div th:replace="fragments/userpanel :: userpanel"></div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="container">
+        <main>
+            <div class="display-6 my-5 text-center">
+                Edytuj dane użytkownika
             </div>
-            <br/>
-            <h2>Edycja danych</h2>
-        </div>
+            <hr class="w-50 mx-auto"/>
 
-        <div class="row g-5 justify-content-center">
+            <div class="row g-5 justify-content-center">
 
-            <div class="col-md-7 col-lg-8 ">
-                <form class="needs-validation" novalidate method="post" action="/userPanel/editUser">
-                    <div class="row g-3">
-                        <div class="col-sm-6">
-                            <label for="firstName" class="form-label">Imie</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder=""
-                                   value="" required>
-                            <div class="invalid-feedback">
-                                Poprawne imie jest wymagane.
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <label for="lastName" class="form-label">Nazwisko</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder=""
-                                   value="" required>
-                            <div class="invalid-feedback">
-                                Poprawne nazwisko jest wymagane.
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="oldPassword" class="form-label">Stare hasło <span
-                                    class="text-muted">(od 4 do 20 znaków)</span></label>
-                            <div class="input-group has-validation">
-                                <span class="input-group-text">#</span>
-                                <input type="password" class="form-control" id="oldPassword" name="oldPassword"
-                                       placeholder="Old Password" minlength="4" maxlength="20" required>
+                <div class="col-md-7 col-lg-8 ">
+                    <form class="needs-validation" novalidate method="post" action="/userPanel/editUser">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">Imie</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder=""
+                                       value="" required>
                                 <div class="invalid-feedback">
-                                    Poprawne hasło jest wymagane.
+                                    Poprawne imie jest wymagane.
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12">
-                            <label for="newPassword" class="form-label">Nowe hasło <span
-                                    class="text-muted">(od 4 do 20 znaków)</span></label>
-                            <div class="input-group has-validation">
-                                <span class="input-group-text">#</span>
-                                <input type="password" class="form-control" id="newPassword" name="newPassword"
-                                       placeholder="Password" minlength="4" maxlength="20" required>
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Nazwisko</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder=""
+                                       value="" required>
                                 <div class="invalid-feedback">
-                                    Poprawne hasło jest wymagane.
+                                    Poprawne nazwisko jest wymagane.
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="imie@przyklad.com" required>
-                            <div class="invalid-feedback">
-                                Poprawny email jest wymagany.
+                            <div class="col-12">
+                                <label for="oldPassword" class="form-label">Stare hasło <span
+                                        class="text-muted">(od 4 do 20 znaków)</span></label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text">#</span>
+                                    <input type="password" class="form-control" id="oldPassword" name="oldPassword"
+                                           placeholder="Old Password" minlength="4" maxlength="20" required>
+                                    <div class="invalid-feedback">
+                                        Poprawne hasło jest wymagane.
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="col-12">
+                                <label for="newPassword" class="form-label">Nowe hasło <span
+                                        class="text-muted">(od 4 do 20 znaków)</span></label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text">#</span>
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                           placeholder="Password" minlength="4" maxlength="20" required>
+                                    <div class="invalid-feedback">
+                                        Poprawne hasło jest wymagane.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                       placeholder="imie@przyklad.com" required>
+                                <div class="invalid-feedback">
+                                    Poprawny email jest wymagany.
+                                </div>
+                            </div>
+                            <button class="w-100 btn btn-primary btn-lg" type="submit">Zmień dane</button>
                         </div>
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Zmień dane</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-    </main>
-</div>
+        </main>
+    </div>
+</main>
 
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
