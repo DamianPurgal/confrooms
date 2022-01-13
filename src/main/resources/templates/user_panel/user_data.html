@@ -15,96 +15,52 @@
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
     <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            align-items: center;
-            padding-bottom: 40px;
-            background-color: #f5f5f5;
-        }
-
-        main {
-            padding-top: 8%;
-        }
-
-        .tenant_panel {
-            max-width: 30%;
-            margin: auto;
-        }
-
-    </style>
 </head>
 
-<body class="text-center">
+<body>
 
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<main class="tenant_panel">
-    <div class="container align-content-center">
+<div th:replace="fragments/userpanel :: userpanel"></div>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
-             class="bi bi-building container align-content-center" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
-            <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
-        </svg>
-    </div>
-    <br/>
-    <h1 class="h3 mb-3 fw-normal" th:text="'Imię: ' + ${loggedUser.firstName}"></h1>
-    <h1 class="h3 mb-3 fw-normal" th:text="'Nazwisko: ' + ${loggedUser.lastName}"></h1>
-    <h1 class="h3 mb-3 fw-normal" th:text="'Login: ' + ${loggedUser.username}"></h1>
-    <h1 class="h3 mb-3 fw-normal" th:text="'Email: ' + ${loggedUser.email}"></h1>
-    <div class="container">
-        <div class="row">
-            <div class="col-6">
-                <a class="btn btn-primary" th:href="@{/userPanel/editUser}">Edytuj dane</a>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="col-8 bg-light border rounded-2 shadow-sm m-5">
+        <div class="row m-4">
+            <div class="col-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor"
+                     class="bi bi-person-circle text-muted" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                    <path fill-rule="evenodd"
+                          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                </svg>
             </div>
-            <div class="col-6">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Usuń konto
-                </button>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Usunięcie konta</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Czy na pewno chcesz usunąć konto?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                            <form method="post" action="/userPanel/deleteUser">
-                                <button type="submit" class="btn btn-primary">
-                                    Potwierdź
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+            <div class="col-11">
+                <div class="display-6 text-muted">
+                    Dane szczegółowe
                 </div>
+            </div>
+            <hr class="my-4" />
+            <div class="col-12 lead text-muted">
+                <dl class="row">
+                    <dt class="col-sm-2">Imię</dt>
+                    <dd class="col-sm-9" th:text="${loggedUser.firstName}"></dd>
+
+                    <dt class="col-sm-2">Nazwisko</dt>
+                    <dd class="col-sm-9" th:text="${loggedUser.lastName}"></dd>
+
+                    <dt class="col-sm-2">Login</dt>
+                    <dd class="col-sm-9" th:text="${loggedUser.username}"></dd>
+
+                    <dt class="col-sm-2">Email</dt>
+                    <dd class="col-sm-9" th:text="${loggedUser.email}"></dd>
+
+                    <dt class="col-sm-2">Typ konta</dt>
+                    <dd class="col-sm-9" th:if="${#request.isUserInRole('OWNER')}">Właściciel sali konferencyjnej</dd>
+                    <dd class="col-sm-9" th:if="${#request.isUserInRole('TENANT')}">Podstawowe konto użytkownika</dd>
+                </dl>
+            </div>
+            <div class="col-12 align-items-end text-end my-3">
+                <a class="btn btn-primary float-right" th:href="@{/userPanel/editUser}">Edytuj dane</a>
             </div>
         </div>
     </div>
