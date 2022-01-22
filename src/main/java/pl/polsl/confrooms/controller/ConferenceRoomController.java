@@ -22,7 +22,7 @@ public class ConferenceRoomController {
 
     @GetMapping("/userPanel/ConferenceRooms")
     @PreAuthorize("hasAnyRole('ROLE_OWNER')")
-    public ModelAndView showConferenceRooms(@RequestParam(value = "page", defaultValue = "0") int page) {
+    public ModelAndView showConferenceRooms() {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/owner_conference_rooms");
         response.addObject("conferenceRooms", conferenceRoomService.getAllConferenceRoomsOfUser((User) loggedUser));
@@ -37,7 +37,7 @@ public class ConferenceRoomController {
 
     @PostMapping("/userPanel/ConferenceRooms/deleteConferenceRoom")
     @PreAuthorize("hasAnyRole('ROLE_OWNER')")
-    public ModelAndView deleteConferenceRoom(int conferenceRoomId) {
+    public ModelAndView deleteConferenceRoom(@RequestParam(value = "conferenceRoomId") int conferenceRoomId) {
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/delete_conference_room_response");
         response.addObject("response", conferenceRoomService.deleteOwnerConferenceRoom((User) loggedUser, (long) conferenceRoomId));
@@ -68,7 +68,7 @@ public class ConferenceRoomController {
 
     @GetMapping("/ConferenceRoom")
     @PreAuthorize("permitAll()")
-    public ModelAndView getDeailedConferenceRoomView(@RequestParam(value = "id", defaultValue = "-1") Long id) {
+    public ModelAndView getDetailedConferenceRoomView(@RequestParam(value = "id", defaultValue = "-1") Long id) {
         try {
             ModelAndView response = new ModelAndView("conference_rooms/conference_room_detailed");
             response.addObject("conferenceRoom", conferenceRoomService.getConferenceRoom(id));

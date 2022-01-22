@@ -31,7 +31,7 @@ public class ReservationController {
 
     @GetMapping("/reservation")
     @PreAuthorize("hasAnyRole('ROLE_TENANT')")
-    public ModelAndView getReservationView(Long id) {
+    public ModelAndView getReservationView(@RequestParam(value = "id", defaultValue = "-1") Long id) {
         try {
             Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             ModelAndView response = new ModelAndView("reservation/reservation");
@@ -64,7 +64,7 @@ public class ReservationController {
 
     @GetMapping("/userPanel/Reservations")
     @PreAuthorize("hasAnyRole('ROLE_TENANT')")
-    public ModelAndView getUserReservations(@RequestParam(value = "page", defaultValue = "0") int page){
+    public ModelAndView getUserReservations(){
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/tenant_reservations");
         response.addObject("reservations", reservationService.getUserReservations(((User) loggedUser).getId()));
@@ -72,7 +72,7 @@ public class ReservationController {
     }
     @PostMapping("/userPanel/Reservation/remove")
     @PreAuthorize("hasAnyRole('ROLE_TENANT')")
-    public ModelAndView deleteUserReservation(@RequestParam(value = "id") Long id){
+    public ModelAndView deleteUserReservation(@RequestParam(value = "id", defaultValue = "-1") Long id){
         Object loggedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ModelAndView response = new ModelAndView("user_panel/delete_reservation_response");
         response.addObject("response", reservationService.deleteUserReservation(id, (User)loggedUser));

@@ -10,35 +10,60 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-
+<style>
+    @media only screen and (max-width: 1226px) {
+        #animation-background {
+            display: none;
+        }
+        #large{
+            display: none;
+        }
+        #medium{
+            display:none;
+        }
+        #small{
+            display:none;
+        }
+    }
+    @media only screen and (max-height: 700px) {
+        #animation-background {
+            display: none;
+        }
+        #large{
+            display: none;
+        }
+        #medium{
+            display:none;
+        }
+        #small{
+            display:none;
+        }
+    }
+</style>
 <body style="height:100%">
 
+<lottie-player id="animation-background" style="position:absolute; z-index:-1; width:65%; height:65%; right:0px;" src="https://assets1.lottiefiles.com/packages/lf20_8wkm9ipy.json" background="transparent"  speed="1"   autoplay></lottie-player>
+
+<div id="large" style="width:40vh; height:40vh; bottom:150px; left:300px; opacity:80%; border-radius:50%; z-index: -1;background-color:#0057b8; position:absolute;"></div>
+<div id="medium" style="width:30vh; height:30vh; bottom:80px; left:100px; opacity:80%; border-radius:50%; z-index: -1;background-color:#0057b8; position:absolute;"></div>
+<div id="small" style="width:25vh; height:25vh; bottom:260px; left:30px; opacity:70%; border-radius:50%; z-index: -1;background-color:#0057b8; position:absolute;"></div>
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<div class="container align-content-center mt-5">
-    <p class="display-2 text-center"> CONFrooms </p>
-</div>
-
-<div class="container align-content-center mt-5 ">
-    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
-         class="bi bi-building container align-content-center" viewBox="0 0 16 16">
-        <path fill-rule="evenodd"
-              d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
-        <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
-    </svg>
-</div>
-<div class="container align-content-center mt-5">
-    <p class="display-5 text-center"> Wyszukaj dostępne sale konferencyjne! </p>
+<div class="p-2 bd-highlight mt-5">
+    <p class="display-2 text-left p-5 pb-0"  style="letter-spacing: 4px; color: #0057b8; font-family: 'Manrope', sans-serif; font-weight:500;"> CONFrooms </p>
+    <p class="display-6 text-left p-5 pt-3 opacity-50"  style="color: #0057b8; font-family: 'Manrope', sans-serif; font-weight:300;"> Wyszukaj i zarezerwuj sale konferencyjne. </p>
 </div>
 <!--  SEARCH BOX  -->
-<div class="container-fluid d-flex mt-5">
-    <div class="container w-50 border border-light p-5 rounded bg-light shadow-lg">
+<div class="container-fluid d-flex position-absolute mt-5" style="bottom:100px;">
+    <div class="container w-50 border py-4 rounded bg-light bg-opacity-75 shadow">
         <form class="needs-validation" action="/ConferenceRooms" novalidate>
             <div class="row g-3 justify-content-center">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <label for="amount" class="form-label">Ilość miejsc</label>
                     <div class="input-group">
                         <input type="number" class="form-control" id="amount" name="numberOfSeats" value="1" min="1"
@@ -54,9 +79,9 @@
                         Wygląda dobrze!
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-5">
                     <label for="datepicker" class="form-label">Data</label>
-                    <div class="input-group">
+                    <div class="input-group" >
                         <input type="date" id="datepicker" class="form-control" name="date" required>
                         <div class="input-group-text" id="btnGroupAddon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -70,8 +95,8 @@
                         Wygląda dobrze!
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <label for="datepicker" class="form-label">Inne</label>
+                <div class="col-md-1">
+                    <label class="form-label">Inne</label>
                     <div class="input-group">
                         <div class="dropdown-toggle form-control" style="background-color: #e9ecef;"
                              data-bs-toggle="collapse" href=".additionalOptions" role="button" aria-expanded="false"
@@ -151,6 +176,7 @@
         </form>
     </div>
 </div>
+
 
 <footer class="footer mt-auto py-3 bg-light fixed-bottom">
     <div class="container">
